@@ -9,7 +9,7 @@ export const TaskProvider = ({ children }) => {
 
   const getData = async (userName) => {
     const res = await fetch(
-      `http://localhost:4310/api/tasks?userName=${userName}`
+      `https://taskmanager-api-52du.onrender.com/api/tasks?userName=${userName}`
     );
     const {
       data: { data },
@@ -18,7 +18,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   const deleteTask = async (taskId) => {
-    const res = await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
+    const res = await fetch(`https://taskmanager-api-52du.onrender.com/api/tasks/${taskId}`, {
       method: 'DELETE',
     });
     setData(
@@ -33,7 +33,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   const addTask = async (obj) => {
-    const res = await fetch('http://localhost:4310/api/tasks', {
+    const res = await fetch('https://taskmanager-api-52du.onrender.com/api/tasks', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
