@@ -7,9 +7,9 @@ export const TaskProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [tasksCompleted, setTasksCompleted] = useState(0);
 
-  const getData = async (userName) => {
+  const getData = async (userEmail) => {
     const res = await fetch(
-      `http://localhost:4310/api/tasks?userName=${userName}`
+      `http://localhost:4310/api/tasks?email=${userEmail}`
     );
     const {
       data: { data },

@@ -13,11 +13,9 @@ const Home = () => {
   const [task, setTask] = useState('');
   const auth = getAuth();
 
-  let user = auth.currentUser.displayName;
-  user = user.split(' ');
-  user = user[0];
   const obj = {
-    userName: user,
+    userName: auth.currentUser.displayName,
+    email: auth.currentUser.email,
     task,
   };
   const handleTextChange = (e) => {

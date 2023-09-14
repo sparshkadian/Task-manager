@@ -7,12 +7,10 @@ const TasksList = () => {
   const auth = getAuth();
   const { data, getData } = useContext(TaskContext);
 
-  let user = auth.currentUser.displayName;
-  user = user.split(' ');
-  user = user[0];
+  let userEmail = auth.currentUser.email;
 
   useEffect(() => {
-    getData(user);
+    getData(userEmail);
   }, []);
 
   return (
