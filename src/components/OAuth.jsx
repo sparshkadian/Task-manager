@@ -16,7 +16,7 @@ const OAuth = () => {
       navigate('/home');
     } catch (error) {
       console.log(error);
-      toast.error('Failed to Create Account');
+      toast.error('Error With Google Auth');
     }
   };
 
