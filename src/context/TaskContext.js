@@ -9,7 +9,7 @@ export const TaskProvider = ({ children }) => {
 
   const getData = async (userEmail) => {
     const res = await fetch(
-      `http://localhost:4310/api/tasks?userName=${userName}`
+      `http://localhost:4310/api/tasks?email=${userEmail}`
     );
     const {
       data: { data },
