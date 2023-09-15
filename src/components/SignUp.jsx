@@ -48,7 +48,10 @@ const SignUp = () => {
   return (
     <>
       <div className='h-screen'>
-        <form className='form-container w-4/5 md:w-[60%] lg:w-1/2 rounded-md flex flex-col gap-2 mt-10'>
+        <form
+          onSubmit={handleSignUp}
+          className='form-container w-4/5 md:w-[60%] lg:w-1/2 rounded-md flex flex-col gap-2 mt-10'
+        >
           <label htmlFor='name'>Name: </label>
           <input
             className='border-2 rounded-md p-2 border-black'
@@ -79,15 +82,11 @@ const SignUp = () => {
           <p>
             Have an Account ?{' '}
             <span className='text-red-500'>
-              <Link to='/user/log-in'>LogIn</Link>
+              <Link to='/user/log-in'>Login</Link>
             </span>
           </p>
 
-          <button
-            className='btn-Form mt-3 w-1/3 m-auto'
-            onClick={handleSignUp}
-            type='submit'
-          >
+          <button className='btn-Form mt-3 w-1/3 m-auto' type='submit'>
             Sign Up
           </button>
 

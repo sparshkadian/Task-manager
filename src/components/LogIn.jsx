@@ -7,8 +7,6 @@ import {
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import animation from './../assets/animations/animation.json';
 import OAuth from './OAuth';
 
 const SignUp = () => {
@@ -28,7 +26,7 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -43,84 +41,65 @@ const SignUp = () => {
     }
   };
 
-  const handlePasswordReset = async () => {
-    try {
-      if (!email) {
-        toast.warning('Please Enter an Email');
-      } else {
-        sendPasswordResetEmail(auth, email);
-        toast.success('Password Reset Mail Sent');
-      }
-    } catch (error) {
-      toast.error('Error Sending mail !');
-      console.log(error);
-    }
-  };
+  // const handlePasswordReset = async () => {
+  //   try {
+  //     if (!email) {
+  //       toast.warning('Please Enter an Email');
+  //     } else {
+  //       sendPasswordResetEmail(auth, email);
+  //       toast.success('Password Reset Mail Sent');
+  //     }
+  //   } catch (error) {
+  //     toast.error('Error Sending mail !');
+  //     console.log(error);
+  //   }
+  // };
 
   return (
-    <div className='flex items-center h-screen'>
-      <div className='relative py-10 signUp_container grid grid-cols-1 w-[95%] sm:w-4/5 mx-auto lg:grid-cols-2'>
-        <div
-          className='self-center
-        w-5/6 sm:w-2/3 lg:w-5/6 justify-self-center grid-auto'
-        >
-          <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-5 '>
-            <div className=''>
-              <p className='text-base sm:text-lg md:text-xl font-bold'>
-                Welcome Back to Taskmanager
-              </p>
-              <p className='text-sm sm:text-base md:text-lg '>
-                Don't Have an Account,{' '}
-                <Link to='/user/sign-up' className='text-blue-500 font-bold'>
-                  Sign Up
-                </Link>
-              </p>
-            </div>
-            <div>
-              <label htmlFor='email'>Email</label>
-              <input
-                className='font-semibold text-lg shadow-2xl border-2 border-blue-200 appearance-none w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-4 focus:border-blue-500'
-                id='email'
-                type='email'
-                autoComplete='off'
-                value={email}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor='password'>Password</label>
-              <input
-                className='font-semibold text-lg shadow-2xl border-2 border-blue-200 appearance-none   w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-4 focus:border-blue-500'
-                id='password'
-                type='password'
-                value={password}
-                onChange={handleChange}
-              />
-            </div>
+    <div className='h-screen'>
+      <form
+        onSubmit={handleLogin}
+        className='form-container w-4/5 md:w-[60%] lg:w-1/2 rounded-md flex flex-col gap-2 mt-10'
+      >
+        <label htmlFor='email'>Email: </label>
+        <input
+          className='border-2 rounded-md p-2 border-black'
+          type='text'
+          id='email'
+          value={email}
+          onChange={handleChange}
+        />
 
-            <div className='justify-self-end mr-1'>
-              <p
-                onClick={handlePasswordReset}
-                className='text-blue-500 font-bold cursor-pointer'
-              >
-                Forgot Password ?
-              </p>
-            </div>
+        <label htmlFor='name'>Password: </label>
+        <input
+          className='border-2 rounded-md p-2 border-black'
+          type='password'
+          id='password'
+          value={password}
+          onChange={handleChange}
+        />
 
-            <button
-              className=' signUp__button w-1/2 justify-self-center sm:text-sm md:text-base mt-5 shadow-md bg-white hover:bg-blue-500 focus:shadow-outline focus:focus:border-blue-500/70  font-bold py-2 px-4 hover:text-white border-4 border-blue-200 sm:w-[40]'
-              type='submit'
-            >
-              Sign In
-            </button>
+        <p>
+          Don't have an Account ?{' '}
+          <span className='text-red-500'>
+            <Link to='/user/sign-up'>Signup</Link>
+          </span>
+        </p>
 
-            <OAuth />
-          </form>
+        <button className='btn-Form mt-3 w-1/3 m-auto' type='submit'>
+          Log In
+        </button>
+
+        <div className='form-divider relative border-2 mt-5'></div>
+
+        <div className='mt-4 w-[65%] sm:w-[250px] m-auto'>
+          <OAuth />
         </div>
-        <div className='hidden lg:block signUp__img lg:self-center'>
-          <Lottie animationData={animation} />
-        </div>
-      </div>
+
+        <p className='mt-2 hover:text-red-500'>
+          <Link to='/'>&larr; Back Home</Link>
+        </p>
+      </form>
     </div>
   );
 };
