@@ -41,19 +41,19 @@ const SignUp = () => {
     }
   };
 
-  // const handlePasswordReset = async () => {
-  //   try {
-  //     if (!email) {
-  //       toast.warning('Please Enter an Email');
-  //     } else {
-  //       sendPasswordResetEmail(auth, email);
-  //       toast.success('Password Reset Mail Sent');
-  //     }
-  //   } catch (error) {
-  //     toast.error('Error Sending mail !');
-  //     console.log(error);
-  //   }
-  // };
+  const handlePasswordReset = async () => {
+    try {
+      if (!email) {
+        toast.warning('Please Enter an Email');
+      } else {
+        sendPasswordResetEmail(auth, email);
+        toast.success('Password Reset Mail Sent');
+      }
+    } catch (error) {
+      toast.error('Error Sending mail !');
+      console.log(error);
+    }
+  };
 
   return (
     <div className='h-screen'>
@@ -79,14 +79,26 @@ const SignUp = () => {
           onChange={handleChange}
         />
 
-        <p>
-          Don't have an Account ?{' '}
-          <span className='text-red-500'>
-            <Link to='/user/sign-up'>Signup</Link>
-          </span>
-        </p>
+        <div className='mt-2 flex justify-between text-sm sm:text-base'>
+          <p>
+            Don't have an Account ?{' '}
+            <span className='text-red-500'>
+              <Link to='/user/sign-up'>Signup</Link>
+            </span>
+          </p>
 
-        <button className='btn-Form mt-3 w-1/3 m-auto' type='submit'>
+          <p
+            className='cursor-pointer text-red-500'
+            onClick={handlePasswordReset}
+          >
+            Forgot Password?
+          </p>
+        </div>
+
+        <button
+          className='btn-Form mt-4 w-[60%] sm:w-[200px] m-auto'
+          type='submit'
+        >
           Log In
         </button>
 

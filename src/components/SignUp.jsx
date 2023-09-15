@@ -86,7 +86,10 @@ const SignUp = () => {
             </span>
           </p>
 
-          <button className='btn-Form mt-3 w-1/3 m-auto' type='submit'>
+          <button
+            className='btn-Form mt-3  w-[60%] sm:w-[200px] m-auto'
+            type='submit'
+          >
             Sign Up
           </button>
 
