@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
-  console.log(process.env.REACT_APP_API_KEY);
   return (
     <>
       <div className='relative h-screen '>
