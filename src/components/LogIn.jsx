@@ -92,7 +92,7 @@ const SignUp = () => {
 
         <div className='form-divider relative border-2 mt-5'></div>
 
-        <div className='mt-4 w-[65%] sm:w-[250px] m-auto'>
+        <div className='mt-4 w-[75%] sm:w-[250px] m-auto'>
           <OAuth />
         </div>
 
