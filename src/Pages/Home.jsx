@@ -2,16 +2,20 @@ import SideBar from '../components/SideBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import TasksList from '../Tasks/TasksList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import TaskContext from '../context/TaskContext';
 import TasksStats from '../Tasks/TasksStats';
 
 const Home = () => {
-  const { addTask } = useContext(TaskContext);
+  const { updateTaskItem, addTask, updateTask } = useContext(TaskContext);
   const [task, setTask] = useState('');
   const auth = getAuth();
+
+  useEffect(() => {
+    setTask(updateTaskItem.task);
+  }, [updateTaskItem.task]);
 
   const obj = {
     userName: auth.currentUser.displayName,
@@ -23,8 +27,13 @@ const Home = () => {
   };
 
   const handleAddTask = () => {
-    addTask(obj);
-    setTask('');
+    if (updateTaskItem) {
+      updateTask({ task });
+      setTask('');
+    } else {
+      addTask(obj);
+      setTask('');
+    }
   };
 
   return (
@@ -36,8 +45,10 @@ const Home = () => {
       <div className='mt-10'>
         <div className='grid'>
           <div className='w-5/6 md:w-1/2 justify-self-center'>
-            <p className='text-center'>Add a new Task</p>
-            <div className='input-container  relative overflow-hidden'>
+            <p className='text-center text-lg'>
+              {updateTaskItem ? 'Update Task' : 'Add a new Task'}
+            </p>
+            <div className='mt-2 input-container  relative overflow-hidden'>
               {' '}
               <input
                 className='outline-none border-2 w-full p-2 overflow-hidden'
