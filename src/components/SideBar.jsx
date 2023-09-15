@@ -13,8 +13,6 @@ const SideBar = () => {
   const user = auth.currentUser;
   const navigate = useNavigate();
 
-  console.log(auth);
-
   const sideBarContainer = {
     hidden: { opacity: 0, translateX: -20 },
     show: {

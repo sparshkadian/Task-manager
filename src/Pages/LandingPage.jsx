@@ -4,7 +4,7 @@ const LandingPage = () => {
   console.log(process.env.REACT_APP_API_KEY);
   return (
     <>
-      <div className='relative h-screen'>
+      <div className='relative h-screen '>
         <nav className='flex gap-5 justify-end p-5'>
           <button className='btn'>
             <Link to='/user/sign-up'>Sign Up</Link>

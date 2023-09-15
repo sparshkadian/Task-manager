@@ -25,7 +25,11 @@ function App() {
             }
           />
         </Routes>
-        <ToastContainer autoClose={2000} hideProgressBar={true} />
+        <ToastContainer
+          position='top-center'
+          autoClose={2000}
+          hideProgressBar={true}
+        />
       </BrowserRouter>
     </TaskProvider>
   );

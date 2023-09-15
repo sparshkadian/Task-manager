@@ -9,7 +9,7 @@ export const TaskProvider = ({ children }) => {
 
   const getData = async (userEmail) => {
     const res = await fetch(
-      `http://localhost:4310/api/tasks?email=${userEmail}`
+      `https://taskmanager-api-52du.onrender.com/api/tasks?email=${userEmail}`
     );
     const {
       data: { data },
