@@ -6,6 +6,7 @@ const TaskContext = createContext();
 export const TaskProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [tasksCompleted, setTasksCompleted] = useState(0);
+  const [updateTaskItem, setUpdateTaskItem] = useState('');
 
   const getData = async (userEmail) => {
     const res = await fetch(
@@ -52,9 +53,37 @@ export const TaskProvider = ({ children }) => {
     setData([...data, task]);
   };
 
+  const updateTask = async (newTask) => {
+    const id = updateTaskItem.id;
+    const res = await fetch(
+      `https://taskmanager-api-52du.onrender.com/api/tasks/${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(newTask),
+      }
+    );
+    const { task } = await res.json();
+    setData(
+      data.map((item) => (item._id === id ? { ...item, ...task } : item))
+    );
+    setUpdateTaskItem('');
+  };
+
   return (
     <TaskContext.Provider
-      value={{ data, tasksCompleted, getData, deleteTask, addTask }}
+      value={{
+        data,
+        updateTaskItem,
+        tasksCompleted,
+        getData,
+        deleteTask,
+        addTask,
+        setUpdateTaskItem,
+        updateTask,
+      }}
     >
       {children}
     </TaskContext.Provider>
