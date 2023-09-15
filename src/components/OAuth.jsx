@@ -1,17 +1,15 @@
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import { useNavigate, useLocation } from 'react-router-dom';
-// import { ReactComponent as GoogleIcon } from './../assets/imgs/google.svg';
 
-const OAuth = () => {
+const GoogleAuth = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const handleSignIn = async () => {
+  const handleGoogleAuth = async () => {
     try {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
 
       navigate('/home');
     } catch (error) {
@@ -22,15 +20,20 @@ const OAuth = () => {
 
   return (
     <>
-      <button
-        onClick={handleSignIn}
-        type='button'
-        class='login-with-google-btn w-1/2 justify-self-center'
+      <div
+        onClick={handleGoogleAuth}
+        className='cursor-pointer border-2 flex justify-around p-2 items-center'
       >
-        Sign in with Google
-      </button>
+        <img
+          className='bg-white'
+          src='../google-icon.png'
+          alt='google-icon'
+          width={30}
+        />
+        <div className='font-semibold'>Sign In with Google</div>
+      </div>
     </>
   );
 };
 
-export default OAuth;
+export default GoogleAuth;
