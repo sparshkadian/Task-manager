@@ -17,7 +17,7 @@ const TaskItem = ({ data }) => {
     <>
       <div
         className='shadow-xl bg-blue-400 rounded-md text-white py-3 px-4
-      flex justify-between'
+      flex justify-between gap-4'
       >
         <p className='flex flex-wrap font-base text-lg '>{data.task}</p>
 
