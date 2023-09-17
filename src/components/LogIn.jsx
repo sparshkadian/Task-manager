@@ -79,7 +79,7 @@ const SignUp = () => {
           onChange={handleChange}
         />
 
-        <div className='mt-2 flex justify-between text-sm sm:text-base'>
+        <div className='mt-2 flex flex-col gap-2 sm:flex-row sm:justify-between text-sm sm:text-base'>
           <p>
             Don't have an Account ?{' '}
             <span className='text-red-500'>
