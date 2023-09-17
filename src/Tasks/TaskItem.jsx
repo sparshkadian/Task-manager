@@ -4,7 +4,9 @@ import { useContext } from 'react';
 import TaskContext from '../context/TaskContext';
 
 const TaskItem = ({ data }) => {
-  const { deleteTask, setUpdateTaskItem } = useContext(TaskContext);
+  const { deleteTask, updateTaskItem, setUpdateTaskItem } =
+    useContext(TaskContext);
+
   const handleTaskDelete = () => {
     deleteTask(data._id);
   };
@@ -13,11 +15,19 @@ const TaskItem = ({ data }) => {
     setUpdateTaskItem({ task: data.task, id: data._id });
   };
 
+  const checkBeingUpdated = () => {
+    if (data._id === updateTaskItem.id) {
+      return true;
+    } else return false;
+  };
+
   return (
     <>
       <div
-        className='shadow-xl bg-blue-400 rounded-md text-white py-3 px-4
-      flex justify-between gap-4'
+        className={`shadow-xl ${
+          checkBeingUpdated() ? 'bg-red-300' : 'bg-blue-400'
+        } rounded-md text-white py-3 px-4
+      flex justify-between gap-4`}
       >
         <p className='flex flex-wrap font-base text-lg '>{data.task}</p>
 
