@@ -16,10 +16,10 @@ const TaskItem = ({ data }) => {
   return (
     <>
       <div
-        className='w-[300px] shadow-xl py-3 bg-blue-400 rounded-md text-white 
-      flex items-center justify-between px-4'
+        className='shadow-xl bg-blue-400 rounded-md text-white py-3 px-4
+      flex justify-between'
       >
-        <p className='font-base text-lg'>{data.task}</p>
+        <p className='flex flex-wrap font-base text-lg '>{data.task}</p>
 
         <div className='flex items-center gap-5'>
           <FontAwesomeIcon

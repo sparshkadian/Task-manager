@@ -15,8 +15,8 @@ const TasksList = () => {
 
   return (
     <>
-      <div className='mt-10 w-[55%] m-auto'>
-        <div className='flex justify-center lg:justify-between flex-wrap gap-4'>
+      <div className='mt-10 w-4/5 sm:w-1/2 m-auto'>
+        <div className='flex flex-col gap-5'>
           {data?.map((task, i) => {
             return <TaskItem key={i} data={task} />;
           })}
