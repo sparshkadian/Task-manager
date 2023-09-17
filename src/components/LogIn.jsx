@@ -96,7 +96,7 @@ const SignUp = () => {
         </div>
 
         <button
-          className='btn-Form mt-4 w-[60%] sm:w-[200px] m-auto'
+          className='btn btn-form mt-4 w-[60%] sm:w-[200px] m-auto'
           type='submit'
         >
           Log In
