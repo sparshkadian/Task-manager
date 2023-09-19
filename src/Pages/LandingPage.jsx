@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const LandingPage = () => {
   return (
     <>
-      <div className='relative h-screen '>
+      <div className='relative h-screen overflow-hidden'>
         <nav className='flex gap-5 justify-end p-5'>
           <button className='btn'>
             <Link to='/user/sign-up'>Sign Up</Link>
