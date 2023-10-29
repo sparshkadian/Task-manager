@@ -1,16 +1,10 @@
 import { useState } from 'react';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import OAuth from './OAuth';
 
 const SignUp = () => {
-  const auth = getAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -29,31 +23,41 @@ const SignUp = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const res = await fetch('http://localhost:4310/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      toast.success('Sign In Successfull');
+      const {
+        data: { user },
+      } = await res.json();
+      toast.success('Logged In Successfully');
+      window.localStorage.setItem('userDetails', JSON.stringify(user));
       setTimeout(() => {
         navigate('/home');
       }, 1000);
     } catch (error) {
-      toast.error('Failed to Sign In');
       console.log(error);
+      toast.error('Login Failed! Try Again.');
     }
   };
 
-  const handlePasswordReset = async () => {
-    try {
-      if (!email) {
-        toast.warning('Please Enter an Email');
-      } else {
-        sendPasswordResetEmail(auth, email);
-        toast.success('Password Reset Mail Sent');
-      }
-    } catch (error) {
-      toast.error('Error Sending mail !');
-      console.log(error);
-    }
-  };
+  // const handlePasswordReset = async () => {
+  //   try {
+  //     if (!email) {
+  //       toast.warning('Please Enter an Email');
+  //     } else {
+  //       sendPasswordResetEmail(auth, email);
+  //       toast.success('Password Reset Mail Sent');
+  //     }
+  //   } catch (error) {
+  //     toast.error('Error Sending mail !');
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className='h-screen'>
@@ -87,12 +91,12 @@ const SignUp = () => {
             </span>
           </p>
 
-          <p
+          {/* <p
             className='cursor-pointer text-red-500'
             onClick={handlePasswordReset}
           >
             Forgot Password?
-          </p>
+          </p> */}
         </div>
 
         <button

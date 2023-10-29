@@ -1,4 +1,3 @@
-import { getAuth, signOut, deleteUser } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,9 +8,9 @@ import Swal from 'sweetalert2';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const auth = getAuth();
-  const user = auth.currentUser;
   const navigate = useNavigate();
+
+  const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 
   const sideBarContainer = {
     hidden: { opacity: 0, translateX: -20 },
@@ -26,7 +25,7 @@ const SideBar = () => {
 
   const handleSignOut = async () => {
     try {
-      signOut(auth);
+      window.localStorage.removeItem('userDetails');
       toast.success('Signed out Successfully');
       navigate('/');
     } catch (error) {
@@ -35,23 +34,23 @@ const SideBar = () => {
     }
   };
 
-  const handleDeleteAccount = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
-        deleteUser(user);
-        navigate('/');
-      }
-    });
-  };
+  // const handleDeleteAccount = () => {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You won't be able to revert this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
+  //       deleteUser(user);
+  //       navigate('/');
+  //     }
+  //   });
+  // };
 
   const openSideBar = () => {
     setIsOpen(true);
@@ -90,7 +89,7 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={user.photoURL}
+                src={userDetails.photo}
                 alt='user-profile-photo'
                 className='rounded-full'
               />
@@ -98,11 +97,11 @@ const SideBar = () => {
 
             <div>
               <p className='text-base sm:text-lg'>
-                UserName: {user.displayName}
+                UserName: {userDetails.name}
               </p>
             </div>
             <div>
-              <p className='text-base sm:text-lg'>Email: {user.email}</p>
+              <p className='text-base sm:text-lg'>Email: {userDetails.email}</p>
             </div>
             <button
               onClick={handleSignOut}
@@ -111,13 +110,13 @@ const SideBar = () => {
             >
               Sign Out
             </button>
-            <button
+            {/* <button
               onClick={handleDeleteAccount}
               type='button'
               className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-red-300'
             >
               Delete Account
-            </button>
+            </button> */}
           </div>
           <FontAwesomeIcon
             onClick={closeSideBar}

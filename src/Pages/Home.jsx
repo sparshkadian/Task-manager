@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import TasksList from '../Tasks/TasksList';
 import { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import TaskContext from '../context/TaskContext';
 import TasksStats from '../Tasks/TasksStats';
@@ -11,15 +10,15 @@ import TasksStats from '../Tasks/TasksStats';
 const Home = () => {
   const { updateTaskItem, addTask, updateTask } = useContext(TaskContext);
   const [task, setTask] = useState('');
-  const auth = getAuth();
+
+  const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 
   useEffect(() => {
     setTask(updateTaskItem.task);
   }, [updateTaskItem.task]);
 
   const obj = {
-    userName: auth.currentUser.displayName,
-    email: auth.currentUser.email,
+    userId: userDetails._id,
     task,
   };
   const handleTextChange = (e) => {
