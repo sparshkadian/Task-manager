@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const GoogleAuth = () => {
   const navigate = useNavigate();

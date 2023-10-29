@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import OAuth from './OAuth';
@@ -31,9 +31,11 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
 
-      const {
-        data: { user },
-      } = await res.json();
+      const data = await res.json();
+      if (data.status === 'fail') {
+        throw new Error(data.message);
+      }
+      const user = data.data.user;
       toast.success('Logged In Successfully');
       window.localStorage.setItem('userDetails', JSON.stringify(user));
       setTimeout(() => {
@@ -41,7 +43,7 @@ const SignUp = () => {
       }, 1000);
     } catch (error) {
       console.log(error);
-      toast.error('Login Failed! Try Again.');
+      toast.error(error.message);
     }
   };
 

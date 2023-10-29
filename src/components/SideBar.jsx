@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
@@ -89,9 +89,10 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={userDetails.photo}
+                src={`http://localhost:4310/${userDetails.photo}`}
                 alt='user-profile-photo'
                 className='rounded-full'
+                width={150}
               />
             </div>
 

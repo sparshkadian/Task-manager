@@ -8,10 +8,6 @@ export const TaskProvider = ({ children }) => {
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [updateTaskItem, setUpdateTaskItem] = useState('');
 
-  const userDetails = window.localStorage.getItem('userDetails')
-    ? JSON.parse(window.localStorage.getItem('userDetails'))
-    : '';
-
   const getData = async (userId) => {
     const res = await fetch(`http://localhost:4310/api/tasks/${userId}`);
     const {
@@ -21,7 +17,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   const deleteTask = async (taskId) => {
-    const res = await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
+    await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
       method: 'DELETE',
     });
     setData(

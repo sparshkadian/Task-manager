@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import OAuth from './OAuth';
 import { app } from './../firebase.config';
 import TaskContext from '../context/TaskContext';
@@ -34,9 +34,11 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
 
-      const {
-        data: { user },
-      } = await res.json();
+      const data = await res.json();
+      if (data.status === 'fail') {
+        throw new Error(data.message);
+      }
+      const user = data.data.user;
       toast.success('Account Created Successfully');
       window.localStorage.setItem('userDetails', JSON.stringify(user));
       setTimeout(() => {
@@ -44,7 +46,7 @@ const SignUp = () => {
       }, 1000);
     } catch (error) {
       console.log(error);
-      toast.error('SignUp Failed! Try Again.');
+      toast.error(error.message);
     }
   };
 

@@ -1,12 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Home from './Pages/Home';
 import LogIn from './components/LogIn';
 import LandingPage from './Pages/LandingPage';
 import SignUp from './components/SignUp';
 import Protected from './components/Protected';
 import { TaskProvider } from './context/TaskContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -25,12 +24,8 @@ function App() {
             }
           />
         </Routes>
-        <ToastContainer
-          position='top-center'
-          autoClose={2000}
-          hideProgressBar={true}
-        />
       </BrowserRouter>
+      <Toaster />
     </TaskProvider>
   );
 }
