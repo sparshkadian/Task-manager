@@ -4,6 +4,7 @@ import LogIn from './components/LogIn';
 import LandingPage from './Pages/LandingPage';
 import SignUp from './components/SignUp';
 import Protected from './components/Protected';
+import UpdateProfile from './components/UpdateProfile';
 import { TaskProvider } from './context/TaskContext';
 import { Toaster } from 'react-hot-toast';
 
@@ -23,6 +24,7 @@ function App() {
               </Protected>
             }
           />
+          <Route path='/updateProfile' element={<UpdateProfile />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

@@ -5,6 +5,7 @@ import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -118,6 +119,14 @@ const SideBar = () => {
             >
               Delete Account
             </button> */}
+            <Link to='/updateProfile' className='text-center'>
+              <button
+                type='button'
+                className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-blue-300'
+              >
+                Update Profile
+              </button>
+            </Link>
           </div>
           <FontAwesomeIcon
             onClick={closeSideBar}
