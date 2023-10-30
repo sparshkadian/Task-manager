@@ -1,17 +1,17 @@
-import { getAuth, signOut, deleteUser } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const auth = getAuth();
-  const user = auth.currentUser;
   const navigate = useNavigate();
+
+  const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 
   const sideBarContainer = {
     hidden: { opacity: 0, translateX: -20 },
@@ -26,7 +26,7 @@ const SideBar = () => {
 
   const handleSignOut = async () => {
     try {
-      signOut(auth);
+      window.localStorage.removeItem('userDetails');
       toast.success('Signed out Successfully');
       navigate('/');
     } catch (error) {
@@ -35,23 +35,23 @@ const SideBar = () => {
     }
   };
 
-  const handleDeleteAccount = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
-        deleteUser(user);
-        navigate('/');
-      }
-    });
-  };
+  // const handleDeleteAccount = () => {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You won't be able to revert this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
+  //       deleteUser(user);
+  //       navigate('/');
+  //     }
+  //   });
+  // };
 
   const openSideBar = () => {
     setIsOpen(true);
@@ -90,19 +90,20 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={user.photoURL}
+                src={`http://localhost:4310/${userDetails.photo}`}
                 alt='user-profile-photo'
                 className='rounded-full'
+                width={150}
               />
             </div>
 
             <div>
               <p className='text-base sm:text-lg'>
-                UserName: {user.displayName}
+                UserName: {userDetails.name}
               </p>
             </div>
             <div>
-              <p className='text-base sm:text-lg'>Email: {user.email}</p>
+              <p className='text-base sm:text-lg'>Email: {userDetails.email}</p>
             </div>
             <button
               onClick={handleSignOut}
@@ -111,13 +112,21 @@ const SideBar = () => {
             >
               Sign Out
             </button>
-            <button
+            {/* <button
               onClick={handleDeleteAccount}
               type='button'
               className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-red-300'
             >
               Delete Account
-            </button>
+            </button> */}
+            <Link to='/updateProfile' className='text-center'>
+              <button
+                type='button'
+                className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-blue-300'
+              >
+                Update Profile
+              </button>
+            </Link>
           </div>
           <FontAwesomeIcon
             onClick={closeSideBar}

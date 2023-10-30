@@ -1,16 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
-import { app } from '../firebase.config';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import OAuth from './OAuth';
+import { app } from './../firebase.config';
+import TaskContext from '../context/TaskContext';
 
 const SignUp = () => {
-  const auth = getAuth();
+  const { setUser } = useContext(TaskContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -30,18 +26,27 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
-        displayName: name,
+      const res = await fetch('http://localhost:4310/api/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
 
+      const data = await res.json();
+      if (data.status === 'fail') {
+        throw new Error(data.message);
+      }
+      const user = data.data.user;
       toast.success('Account Created Successfully');
+      window.localStorage.setItem('userDetails', JSON.stringify(user));
       setTimeout(() => {
         navigate('/home');
       }, 1000);
     } catch (error) {
       console.log(error);
-      toast.error('SignUp Failed! Try Again.');
+      toast.error(error.message);
     }
   };
 

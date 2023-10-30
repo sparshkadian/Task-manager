@@ -8,10 +8,8 @@ export const TaskProvider = ({ children }) => {
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [updateTaskItem, setUpdateTaskItem] = useState('');
 
-  const getData = async (userEmail) => {
-    const res = await fetch(
-      `https://taskmanager-api-52du.onrender.com/api/tasks?email=${userEmail}`
-    );
+  const getData = async (userId) => {
+    const res = await fetch(`http://localhost:4310/api/tasks/${userId}`);
     const {
       data: { data },
     } = await res.json();
@@ -19,12 +17,9 @@ export const TaskProvider = ({ children }) => {
   };
 
   const deleteTask = async (taskId) => {
-    const res = await fetch(
-      `https://taskmanager-api-52du.onrender.com/api/tasks/${taskId}`,
-      {
-        method: 'DELETE',
-      }
-    );
+    await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
+      method: 'DELETE',
+    });
     setData(
       data.filter((task) => {
         return task._id !== taskId;
@@ -37,16 +32,13 @@ export const TaskProvider = ({ children }) => {
   };
 
   const addTask = async (obj) => {
-    const res = await fetch(
-      'https://taskmanager-api-52du.onrender.com/api/tasks',
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(obj),
-      }
-    );
+    const res = await fetch('http://localhost:4310/api/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
     const {
       data: { task },
     } = await res.json();
@@ -55,16 +47,13 @@ export const TaskProvider = ({ children }) => {
 
   const updateTask = async (newTask) => {
     const id = updateTaskItem.id;
-    const res = await fetch(
-      `https://taskmanager-api-52du.onrender.com/api/tasks/${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(newTask),
-      }
-    );
+    const res = await fetch(`http://localhost:4310/api/tasks/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(newTask),
+    });
     const { task } = await res.json();
     setData(
       data.map((item) => (item._id === id ? { ...item, ...task } : item))
