@@ -55,13 +55,11 @@ const Home = () => {
                 value={task}
                 onChange={handleTextChange}
               />
-              <button type='submit'>
-                <FontAwesomeIcon
-                  onClick={handleAddTask}
-                  icon={faPlus}
-                  className='mr-3 cursor-pointer text-[22px]'
-                />
-              </button>
+              <FontAwesomeIcon
+                onClick={handleAddTask}
+                icon={faPlus}
+                className='mr-3 cursor-pointer text-[22px]'
+              />
             </form>
           </div>
         </div>
