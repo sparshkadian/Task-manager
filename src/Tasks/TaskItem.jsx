@@ -25,7 +25,7 @@ const TaskItem = ({ data }) => {
     <>
       <div
         className={`shadow-xl ${
-          checkBeingUpdated() ? 'bg-red-300' : 'bg-blue-400'
+          checkBeingUpdated() ? 'bg-red-500' : 'bg-blue-600'
         } rounded-md text-white py-3 px-4
       flex justify-between gap-4`}
       >

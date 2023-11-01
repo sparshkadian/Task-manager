@@ -44,25 +44,25 @@ const Home = () => {
       <div className='mt-10'>
         <div className='grid'>
           <div className='w-5/6 md:w-1/2 justify-self-center'>
-            <p className='text-center text-lg'>
+            <p className='text-center text-lg mb-2'>
               {updateTaskItem ? 'Update Task' : 'Add a new Task'}
-            </p>
-            <div className='mt-2 input-container  relative overflow-hidden'>
-              {' '}
+            </p>{' '}
+            <form className='bg-slate-100 flex items-center shadow-xl rounded-xl '>
               <input
-                className='outline-none border-2 w-full p-2 overflow-hidden'
+                className='bg-transparent text-lg w-full p-3 focus:outline-none'
+                spellCheck='false'
                 type='text'
                 value={task}
                 onChange={handleTextChange}
               />
-              <button className='absolute text-xl h-full w-[50px] top-0 right-0  bg-blue-300'>
+              <button type='submit'>
                 <FontAwesomeIcon
                   onClick={handleAddTask}
                   icon={faPlus}
-                  color='white'
+                  className='mr-3 cursor-pointer text-[22px]'
                 />
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
