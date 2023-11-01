@@ -1,12 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import OAuth from './OAuth';
 import { app } from './../firebase.config';
-import TaskContext from '../context/TaskContext';
 
 const SignUp = () => {
-  const { setUser } = useContext(TaskContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -26,13 +24,16 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:4310/api/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        'https://taskmanager-api-aaxw.onrender.com/api/user/signup',
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
       if (data.status === 'fail') {

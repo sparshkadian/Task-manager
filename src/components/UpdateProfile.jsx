@@ -26,12 +26,11 @@ const UpdateProfile = () => {
   const handlePhotoUpdate = async (e) => {
     e.preventDefault();
     try {
-      if (file === '') throw new Error('No Image selected');
       const form = new FormData();
       form.append('photo', formData.file);
       form.append('name', formData.name);
       const res = await fetch(
-        `http://localhost:4310/api/user/updateMe/${userId}`,
+        `https://taskmanager-api-aaxw.onrender.com/api/user/updateMe/${userId}`,
         {
           method: 'PATCH',
           body: form,
