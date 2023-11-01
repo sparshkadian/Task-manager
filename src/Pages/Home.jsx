@@ -47,7 +47,7 @@ const Home = () => {
             <p className='text-center text-lg mb-2'>
               {updateTaskItem ? 'Update Task' : 'Add a new Task'}
             </p>{' '}
-            <form className='bg-slate-200 flex items-center shadow-lg rounded-xl '>
+            <form className='bg-slate-100 flex items-center shadow-xl rounded-xl '>
               <input
                 className='bg-transparent text-lg w-full p-3 focus:outline-none'
                 spellCheck='false'
