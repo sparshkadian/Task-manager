@@ -108,7 +108,7 @@ const SignUp = () => {
           Log In
         </button>
 
-        <div className='form-divider relative border-2 mt-5'></div>
+        <div className='relative border-2 mt-5'></div>
 
         <div className='mt-4 w-[75%] sm:w-[250px] m-auto'>
           <OAuth />

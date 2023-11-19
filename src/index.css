@@ -304,16 +304,6 @@ nav {
   padding: 20px;
 }
 
-.form-divider::before {
-  content: 'Or';
-  background-color: #fff;
-  padding: 5px;
-  position: absolute;
-  top: -17px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .btn-form {
   border-radius: 5px;
 }
