@@ -10,25 +10,30 @@ import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <TaskProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/' element={<LandingPage />} />
-          <Route path='/user/sign-up' element={<SignUp />} />
-          <Route path='/user/log-in' element={<LogIn />} />
-          <Route
-            path='/home'
-            element={
-              <Protected>
-                <Home />
-              </Protected>
-            }
-          />
-          <Route path='/updateProfile' element={<UpdateProfile />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster />
-    </TaskProvider>
+    <>
+      <div className='main'>
+        <div className='gradient' />
+      </div>
+      <TaskProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path='/' element={<LandingPage />} />
+            <Route path='/user/sign-up' element={<SignUp />} />
+            <Route path='/user/log-in' element={<LogIn />} />
+            <Route
+              path='/home'
+              element={
+                <Protected>
+                  <Home />
+                </Protected>
+              }
+            />
+            <Route path='/updateProfile' element={<UpdateProfile />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+      </TaskProvider>
+    </>
   );
 }
 

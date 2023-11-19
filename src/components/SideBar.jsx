@@ -90,7 +90,7 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={`https://taskmanager-api-aaxw.onrender.com/${userDetails.photo}`}
+                src={userDetails.photo}
                 alt='user-profile-photo'
                 className='rounded-full'
                 width={150}

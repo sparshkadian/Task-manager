@@ -1,27 +1,42 @@
 import { useNavigate } from 'react-router-dom';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import toast from 'react-hot-toast';
+import { app } from './../firebase.config';
 
 const GoogleAuth = () => {
   const navigate = useNavigate();
 
-  // const handleGoogleAuth = async () => {
-  //   try {
-  //     const auth = getAuth();
-  //     const provider = new GoogleAuthProvider();
-  //     await signInWithPopup(auth, provider);
+  const handleGoogleClick = async () => {
+    try {
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
 
-  //     navigate('/home');
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error('Error With Google Auth');
-  //   }
-  // };
+      const result = await signInWithPopup(auth, provider);
+
+      const res = await fetch('http://localhost:4310/api/user/google', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+        }),
+      });
+      const data = await res.json();
+      window.localStorage.setItem('userDetails', JSON.stringify(data));
+      setTimeout(() => {
+        navigate('/home');
+      }, 1000);
+    } catch (error) {
+      console.log('could not sign in with google', error);
+    }
+  };
 
   return (
     <>
       <div
-        // onClick={handleGoogleAuth}
+        onClick={handleGoogleClick}
         className='cursor-pointer border-2 flex justify-around p-2 items-center'
       >
         <img
