@@ -58,6 +58,21 @@
   opacity: 0.15;
 }
 
+.landing-page-buttons {
+  animation: fade-in 1s ease-in-out;
+  animation-delay: 1s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .signUp_container {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;

@@ -67,7 +67,9 @@ const SignUp = () => {
         onSubmit={handleLogin}
         className='form-container w-4/5 md:w-[60%] lg:w-1/2 rounded-md flex flex-col gap-2 mt-10'
       >
-        <label htmlFor='email'>Email: </label>
+        <label htmlFor='email' className='text-lg'>
+          Email:{' '}
+        </label>
         <input
           className='border-2 rounded-md p-2 border-black'
           type='text'
@@ -76,7 +78,9 @@ const SignUp = () => {
           onChange={handleChange}
         />
 
-        <label htmlFor='name'>Password: </label>
+        <label htmlFor='name' className='text-lg'>
+          Password:{' '}
+        </label>
         <input
           className='border-2 rounded-md p-2 border-black'
           type='password'
@@ -110,7 +114,7 @@ const SignUp = () => {
 
         <div className='relative border-2 mt-5'></div>
 
-        <div className='mt-4 w-[75%] sm:w-[250px] m-auto'>
+        <div className='mt-4 w-[55%] sm:w-[205px] m-auto'>
           <OAuth />
         </div>
 
