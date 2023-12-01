@@ -90,7 +90,7 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={userDetails.photo}
+                src={`http://localhost:4310/${userDetails.photo}`}
                 alt='user-profile-photo'
                 className='rounded-full'
                 width={150}

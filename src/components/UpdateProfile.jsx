@@ -30,7 +30,7 @@ const UpdateProfile = () => {
       form.append('photo', formData.file);
       form.append('name', formData.name);
       const res = await fetch(
-        `https://taskmanager-api-aaxw.onrender.com/api/user/updateMe/${userId}`,
+        `http://localhost:4310/api/user/updateMe/${userId}`,
         {
           method: 'PATCH',
           body: form,
