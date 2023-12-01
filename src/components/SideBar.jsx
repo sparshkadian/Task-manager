@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import TaskContext from '../context/TaskContext';
 
 const SideBar = () => {
+  const { deleteUser } = useContext(TaskContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -35,23 +37,23 @@ const SideBar = () => {
     }
   };
 
-  // const handleDeleteAccount = () => {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, delete it!',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
-  //       deleteUser(user);
-  //       navigate('/');
-  //     }
-  //   });
-  // };
+  const handleDeleteAccount = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
+        deleteUser(userDetails._id);
+        navigate('/');
+      }
+    });
+  };
 
   const openSideBar = () => {
     setIsOpen(true);
@@ -73,7 +75,7 @@ const SideBar = () => {
 
       {isOpen && (
         <motion.div
-          className='side-bar relative z-10 border-2 h-screen w-[300px]'
+          className='side-bar relative z-10 border-2 h-screen w-[350px]'
           variants={sideBarContainer}
           initial='hidden'
           animate='show'
@@ -85,7 +87,7 @@ const SideBar = () => {
         >
           <div className='grid p-2 gap-4'>
             <div className='justify-self-center'>
-              <p className=' text-2xl'>Profile Details</p>
+              <p className=' text-3xl'>Profile Details</p>
             </div>
 
             <div className='justify-self-center'>
@@ -98,31 +100,34 @@ const SideBar = () => {
             </div>
 
             <div>
-              <p className='text-base sm:text-lg'>
-                UserName: {userDetails.name}
+              <p className='text-base sm:text-lg font-semibold'>
+                UserName:{' '}
+                <span className='font-normal'>{userDetails.name}</span>
               </p>
             </div>
             <div>
-              <p className='text-base sm:text-lg'>Email: {userDetails.email}</p>
+              <p className='text-base sm:text-lg font-semibold'>
+                Email: <span className='font-normal'>{userDetails.email}</span>
+              </p>
             </div>
             <button
               onClick={handleSignOut}
               type='button'
-              className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-blue-300'
+              className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-red-400 hover:text-white'
             >
               Sign Out
             </button>
-            {/* <button
+            <button
               onClick={handleDeleteAccount}
               type='button'
-              className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-red-300'
+              className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-red-400 hover:text-white'
             >
               Delete Account
-            </button> */}
+            </button>
             <Link to='/updateProfile' className='text-center'>
               <button
                 type='button'
-                className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-blue-300'
+                className='sidebar-button p-2 rounded-3xl w-2/3 m-auto  hover:bg-blue-400 hover:text-white'
               >
                 Update Profile
               </button>

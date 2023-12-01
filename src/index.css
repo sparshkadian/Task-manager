@@ -211,6 +211,7 @@ nav {
   box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
     rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
   font-weight: 500;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
 
 .side-bar-icon {
@@ -221,7 +222,7 @@ nav {
   font-weight: 500;
   padding: 10px;
   margin: 10px 0 0 10px;
-  font-size: 25px;
+  font-size: 17px;
   cursor: pointer;
 }
 

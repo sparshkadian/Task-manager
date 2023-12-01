@@ -61,6 +61,12 @@ export const TaskProvider = ({ children }) => {
     setUpdateTaskItem('');
   };
 
+  const deleteUser = async (userId) => {
+    await fetch(`http://localhost:4310/api/user/delete/${userId}`, {
+      method: 'DELETE',
+    });
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -72,6 +78,7 @@ export const TaskProvider = ({ children }) => {
         addTask,
         setUpdateTaskItem,
         updateTask,
+        deleteUser,
       }}
     >
       {children}
