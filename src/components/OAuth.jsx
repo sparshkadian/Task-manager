@@ -38,7 +38,7 @@ const GoogleAuth = () => {
     <>
       <div
         onClick={handleGoogleClick}
-        className='cursor-pointer border-2 border-black rounded-md  flex justify-between p-2 items-center'
+        className='cursor-pointer border-2 border-black rounded-md  flex justify-between p-2 items-center w-[200px]'
       >
         <img
           className='rounded-full'

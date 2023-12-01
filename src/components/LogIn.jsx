@@ -114,7 +114,7 @@ const SignUp = () => {
 
         <div className='relative border-2 mt-5'></div>
 
-        <div className='mt-4 w-[55%] sm:w-[205px] m-auto'>
+        <div className='mt-4 self-center'>
           <OAuth />
         </div>
 
