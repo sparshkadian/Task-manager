@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({ file: '', name: '' });
   const { file, name } = formData;
 
-  const { _id: userId } = JSON.parse(
+  const { _id: userId, isGoogleAuth: google } = JSON.parse(
     window.localStorage.getItem('userDetails')
   );
 
@@ -89,13 +90,24 @@ const UpdateProfile = () => {
             />
           </div>
 
-          <div>
+          <div className='flex justify-between'>
             <button
               type='submit'
-              className='hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none'
+              className='hover:shadow-form rounded-md bg-black hover:bg-slate-700 py-3 px-8 text-center text-base font-semibold text-white outline-none'
             >
               Save Changes
             </button>
+
+            {!google && (
+              <Link to='/changepassword'>
+                <button
+                  type='submit'
+                  className='hover:shadow-form rounded-md bg-black hover:bg-slate-700 py-3 px-8 text-center text-base font-semibold text-white outline-none'
+                >
+                  Change Password
+                </button>
+              </Link>
+            )}
           </div>
         </form>
       </div>

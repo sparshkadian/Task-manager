@@ -7,10 +7,12 @@ import { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import TaskContext from '../context/TaskContext';
+import image from '../assets/imgs/default.png';
 
 const SideBar = () => {
   const { deleteUser } = useContext(TaskContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState(image);
   const navigate = useNavigate();
 
   const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
@@ -63,6 +65,14 @@ const SideBar = () => {
     setIsOpen(false);
   };
 
+  const checkImage = () => {
+    if (!userDetails.photo) {
+      return profileImage;
+    } else if (userDetails.isGoogleAuth) {
+      return `${userDetails.photo}`;
+    } else return `http://localhost:4310/${userDetails.photo}`;
+  };
+
   return (
     <>
       {!isOpen && (
@@ -92,7 +102,7 @@ const SideBar = () => {
 
             <div className='justify-self-center'>
               <img
-                src={`http://localhost:4310/${userDetails.photo}`}
+                src={checkImage()}
                 alt='user-profile-photo'
                 className='rounded-full'
                 width={150}
@@ -101,7 +111,7 @@ const SideBar = () => {
 
             <div>
               <p className='text-base sm:text-lg font-semibold'>
-                UserName:{' '}
+                Username:{' '}
                 <span className='font-normal'>{userDetails.name}</span>
               </p>
             </div>

@@ -5,6 +5,7 @@ import LandingPage from './Pages/LandingPage';
 import SignUp from './components/SignUp';
 import Protected from './components/Protected';
 import UpdateProfile from './components/UpdateProfile';
+import ChangePassword from './Pages/ChangePassword';
 import { TaskProvider } from './context/TaskContext';
 import { Toaster } from 'react-hot-toast';
 
@@ -29,6 +30,7 @@ function App() {
               }
             />
             <Route path='/updateProfile' element={<UpdateProfile />} />
+            <Route path='/changepassword' element={<ChangePassword />} />
           </Routes>
         </BrowserRouter>
         <Toaster />
