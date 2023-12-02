@@ -3,21 +3,20 @@ import toast from 'react-hot-toast';
 import Spinner from '../components/Spinner';
 
 const ChangePassword = () => {
-  const { _id: userId } = JSON.parse(
-    window.localStorage.getItem('userDetails')
-  );
+  const [showPassword, setShowPassword] = useState(false);
+  const [hideEye, setHideEye] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const [hideEye, setHideEye] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const { currentPassword, newPassword, confirmPassword } = formData;
+  const { _id: userId } = JSON.parse(
+    window.localStorage.getItem('userDetails')
+  );
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setFormData((prevValue) => ({
       ...prevValue,
       [e.target.id]: e.target.value,
@@ -90,7 +89,7 @@ const ChangePassword = () => {
             name='currentPassword'
             id='currentPassword'
             value={currentPassword}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className='border-2 p-2 rounded-lg hover:shadow focus:outline-none focus:border-slate-500'
           />
         </div>
@@ -104,7 +103,7 @@ const ChangePassword = () => {
             name='newPassword'
             id='newPassword'
             value={newPassword}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className='border-2 p-2 rounded-lg hover:shadow focus:outline-none focus:border-slate-500'
           />
         </div>
@@ -118,7 +117,7 @@ const ChangePassword = () => {
             name='confirmPassword'
             id='confirmPassword'
             value={confirmPassword}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className='border-2 p-2 rounded-lg hover:shadow focus:outline-none focus:border-slate-500'
           />
           <img

@@ -11,18 +11,19 @@ const GoogleAuth = () => {
       const provider = new GoogleAuthProvider();
 
       const result = await signInWithPopup(auth, provider);
+      const userData = {
+        name: result.user.displayName,
+        email: result.user.email,
+        photo: result.user.photoURL,
+        isGoogleAuth: true,
+      };
 
       const res = await fetch('http://localhost:4310/api/auth/google', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify({
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
-          isGoogleAuth: true,
-        }),
+        body: JSON.stringify(userData),
       });
       const data = await res.json();
       window.localStorage.setItem('userDetails', JSON.stringify(data));

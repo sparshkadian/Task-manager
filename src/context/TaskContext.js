@@ -1,5 +1,4 @@
-import { createContext } from 'react';
-import { useState } from 'react';
+import { useState, createContext } from 'react';
 
 const TaskContext = createContext();
 
@@ -8,7 +7,7 @@ export const TaskProvider = ({ children }) => {
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [updateTaskItem, setUpdateTaskItem] = useState('');
 
-  const getData = async (userId) => {
+  const getTasksData = async (userId) => {
     const res = await fetch(`http://localhost:4310/api/tasks/${userId}`);
     const data = await res.json();
     setTaskData(data);
@@ -58,24 +57,17 @@ export const TaskProvider = ({ children }) => {
     setUpdateTaskItem('');
   };
 
-  const deleteUser = async (userId) => {
-    await fetch(`http://localhost:4310/api/user/delete/${userId}`, {
-      method: 'DELETE',
-    });
-  };
-
   return (
     <TaskContext.Provider
       value={{
         taskData,
         updateTaskItem,
         tasksCompleted,
-        getData,
+        getTasksData,
         completeTask,
         addTask,
         setUpdateTaskItem,
         updateTask,
-        deleteUser,
       }}
     >
       {children}

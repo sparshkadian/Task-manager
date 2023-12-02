@@ -3,14 +3,14 @@ import TaskContext from '../context/TaskContext';
 import TaskItem from './TaskItem';
 
 const TasksList = () => {
-  const { taskData, getData } = useContext(TaskContext);
+  const { taskData, getTasksData } = useContext(TaskContext);
 
   const userDetails = window.localStorage.getItem('userDetails')
     ? JSON.parse(window.localStorage.getItem('userDetails'))
     : '';
 
   useEffect(() => {
-    getData(userDetails._id);
+    getTasksData(userDetails._id);
   }, []);
 
   return (

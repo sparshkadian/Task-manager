@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import OAuth from './OAuth';
 import Spinner from '../components/Spinner';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-
   const { name, email, password } = formData;
 
   const handleEyeChange = () => {
@@ -27,7 +26,7 @@ const SignUp = () => {
     });
   };
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -73,37 +72,37 @@ const SignUp = () => {
           className='form-container w-4/5 md:w-[60%] lg:w-1/2 rounded-md flex flex-col gap-2 mt-10'
         >
           <label htmlFor='name' className='text-lg'>
-            Name:{' '}
+            Name:
           </label>
           <input
             className='border-2 rounded-md p-2 border-black'
             type='text'
             id='name'
             value={name}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
 
           <label htmlFor='email' className='text-lg'>
-            Email:{' '}
+            Email:
           </label>
           <input
             className='border-2 rounded-md p-2 border-black'
-            type='text'
+            type='email'
             id='email'
             value={email}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
 
           <div className='relative flex flex-col gap-2'>
             <label htmlFor='name' className='text-lg'>
-              Password:{' '}
+              Password:
             </label>
             <input
               className='border-2 rounded-md p-2 border-black'
               type={`${showPassword ? 'text' : 'password'}`}
               id='password'
               value={password}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <img
               onClick={handleEyeChange}

@@ -1,20 +1,17 @@
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
-import { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
-import TaskContext from '../context/TaskContext';
+import toast from 'react-hot-toast';
 import image from '../assets/imgs/default.png';
 
 const SideBar = () => {
-  const { deleteUser } = useContext(TaskContext);
-  const [isOpen, setIsOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState(image);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
+  const profileImage = image;
   const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 
   const sideBarContainer = {
@@ -26,6 +23,22 @@ const SideBar = () => {
         duration: 0.5,
       },
     },
+  };
+
+  const openSideBar = () => {
+    setIsOpen(true);
+  };
+
+  const closeSideBar = () => {
+    setIsOpen(false);
+  };
+
+  const checkImage = () => {
+    if (!userDetails.photo) {
+      return profileImage;
+    } else if (userDetails.isGoogleAuth) {
+      return `${userDetails.photo}`;
+    } else return `http://localhost:4310/${userDetails.photo}`;
   };
 
   const handleSignOut = async () => {
@@ -48,29 +61,18 @@ const SideBar = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         Swal.fire('Deleted!', 'Your Account has been deleted.', 'success');
-        deleteUser(userDetails._id);
+        await fetch(
+          `http://localhost:4310/api/user/delete/${userDetails._id}`,
+          {
+            method: 'DELETE',
+          }
+        );
         navigate('/');
       }
     });
-  };
-
-  const openSideBar = () => {
-    setIsOpen(true);
-  };
-
-  const closeSideBar = () => {
-    setIsOpen(false);
-  };
-
-  const checkImage = () => {
-    if (!userDetails.photo) {
-      return profileImage;
-    } else if (userDetails.isGoogleAuth) {
-      return `${userDetails.photo}`;
-    } else return `http://localhost:4310/${userDetails.photo}`;
   };
 
   return (

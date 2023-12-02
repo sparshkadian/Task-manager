@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX, faPen } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import TaskContext from '../context/TaskContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const TaskItem = ({ data }) => {
   const { completeTask, updateTaskItem, setUpdateTaskItem } =

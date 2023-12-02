@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import OAuth from './OAuth';
 import Spinner from '../components/Spinner';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-
   const { email, password } = formData;
 
   const handleEyeChange = () => {
@@ -27,7 +25,7 @@ const SignUp = () => {
     });
   };
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
       [e.target.id]: e.target.value,
@@ -65,20 +63,6 @@ const SignUp = () => {
     }
   };
 
-  // const handlePasswordReset = async () => {
-  //   try {
-  //     if (!email) {
-  //       toast.warning('Please Enter an Email');
-  //     } else {
-  //       sendPasswordResetEmail(auth, email);
-  //       toast.success('Password Reset Mail Sent');
-  //     }
-  //   } catch (error) {
-  //     toast.error('Error Sending mail !');
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <div className='h-screen'>
       <form
@@ -93,7 +77,7 @@ const SignUp = () => {
           type='text'
           id='email'
           value={email}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
 
         <div className='relative flex flex-col gap-2'>
@@ -105,7 +89,7 @@ const SignUp = () => {
             type={`${showPassword ? 'text' : 'password'}`}
             id='password'
             value={password}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <img
             onClick={handleEyeChange}
@@ -124,12 +108,7 @@ const SignUp = () => {
             </span>
           </p>
 
-          {/* <p
-            className='cursor-pointer text-red-500'
-            onClick={handlePasswordReset}
-          >
-            Forgot Password?
-          </p> */}
+          <p className='cursor-pointer text-red-500'>Forgot Password?</p>
         </div>
 
         <button

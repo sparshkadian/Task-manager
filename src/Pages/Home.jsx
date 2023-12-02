@@ -1,16 +1,15 @@
+import { useState, useEffect, useRef, useContext } from 'react';
+import TaskContext from '../context/TaskContext';
+import TasksList from '../Tasks/TasksList';
 import SideBar from '../components/SideBar';
+import TasksStats from '../Tasks/TasksStats';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import TasksList from '../Tasks/TasksList';
-import { useState, useEffect, useRef } from 'react';
-import { useContext } from 'react';
-import TaskContext from '../context/TaskContext';
-import TasksStats from '../Tasks/TasksStats';
 
 const Home = () => {
   const inputRef = useRef(null);
-  const { updateTaskItem, addTask, updateTask } = useContext(TaskContext);
   const [task, setTask] = useState('');
+  const { updateTaskItem, addTask, updateTask } = useContext(TaskContext);
 
   const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 

@@ -4,13 +4,12 @@ import toast from 'react-hot-toast';
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({ file: '', name: '' });
-  const { file, name } = formData;
 
   const { _id: userId, isGoogleAuth: google } = JSON.parse(
     window.localStorage.getItem('userDetails')
   );
 
-  const handleChange = (e) => {
+  const handleNameChange = (e) => {
     setFormData((prevValue) => ({
       ...prevValue,
       [e.target.id]: e.target.value,
@@ -83,8 +82,8 @@ const UpdateProfile = () => {
             <input
               type='text'
               name='name'
-              onChange={handleChange}
-              value={name}
+              onChange={handleNameChange}
+              value={formData.name}
               id='name'
               className='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'
             />
