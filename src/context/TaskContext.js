@@ -5,26 +5,24 @@ const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  console.log(data);
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [updateTaskItem, setUpdateTaskItem] = useState('');
 
   const getData = async (userId) => {
     const res = await fetch(`http://localhost:4310/api/tasks/${userId}`);
-    const {
-      data: { data },
-    } = await res.json();
+    const data = await res.json();
     setData(data);
   };
 
-  const deleteTask = async (taskId) => {
-    await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
+  const completeTask = async (taskId) => {
+    const res = await fetch(`http://localhost:4310/api/tasks/${taskId}`, {
       method: 'DELETE',
     });
-    setData(
-      data.filter((task) => {
-        return task._id !== taskId;
-      })
-    );
+
+    const returnedData = await res.json();
+
+    setData(returnedData);
 
     setTasksCompleted((prevState) => {
       return prevState + 1;
@@ -74,7 +72,7 @@ export const TaskProvider = ({ children }) => {
         updateTaskItem,
         tasksCompleted,
         getData,
-        deleteTask,
+        completeTask,
         addTask,
         setUpdateTaskItem,
         updateTask,

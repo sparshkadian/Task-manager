@@ -3,15 +3,29 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import OAuth from './OAuth';
+import Spinner from '../components/Spinner';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [hideEye, setHideEye] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const { email, password } = formData;
+
+  const handleEyeChange = () => {
+    setShowPassword((prevValue) => {
+      return !prevValue;
+    });
+
+    setHideEye((prevValue) => {
+      return !prevValue;
+    });
+  };
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -23,6 +37,7 @@ const SignUp = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await fetch('http://localhost:4310/api/auth/login', {
         method: 'POST',
         headers: {
@@ -33,17 +48,20 @@ const SignUp = () => {
 
       const data = await res.json();
       if (data.status === 'fail') {
+        setLoading(false);
         throw new Error(data.message);
       }
       const user = data.data.user;
       toast.success('Logged In Successfully');
       window.localStorage.setItem('userDetails', JSON.stringify(user));
+      setLoading(false);
       setTimeout(() => {
         navigate('/home');
       }, 1000);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+      setLoading(false);
     }
   };
 
@@ -78,16 +96,25 @@ const SignUp = () => {
           onChange={handleChange}
         />
 
-        <label htmlFor='name' className='text-lg'>
-          Password:{' '}
-        </label>
-        <input
-          className='border-2 rounded-md p-2 border-black'
-          type='password'
-          id='password'
-          value={password}
-          onChange={handleChange}
-        />
+        <div className='relative flex flex-col gap-2'>
+          <label htmlFor='name' className='text-lg'>
+            Password:{' '}
+          </label>
+          <input
+            className='border-2 rounded-md p-2 border-black'
+            type={`${showPassword ? 'text' : 'password'}`}
+            id='password'
+            value={password}
+            onChange={handleChange}
+          />
+          <img
+            onClick={handleEyeChange}
+            src={`${hideEye ? '../hide.png' : '../view.png'}`}
+            width={25}
+            alt='eye'
+            className='cursor-pointer absolute right-[0.5rem] top-[2.9rem]'
+          />
+        </div>
 
         <div className='mt-2 flex flex-col gap-2 sm:flex-row sm:justify-between text-sm sm:text-base'>
           <p>
@@ -109,7 +136,7 @@ const SignUp = () => {
           className='btn btn-form mt-4 w-[60%] sm:w-[200px] m-auto'
           type='submit'
         >
-          Log In
+          {loading ? <Spinner /> : 'Log In'}
         </button>
 
         <div className='relative border-2 mt-5'></div>

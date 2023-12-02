@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import OAuth from './OAuth';
-import { app } from './../firebase.config';
+import Spinner from '../components/Spinner';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [hideEye, setHideEye] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,6 +16,16 @@ const SignUp = () => {
   });
 
   const { name, email, password } = formData;
+
+  const handleEyeChange = () => {
+    setShowPassword((prevValue) => {
+      return !prevValue;
+    });
+
+    setHideEye((prevValue) => {
+      return !prevValue;
+    });
+  };
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -24,6 +37,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await fetch('http://localhost:4310/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -34,17 +48,20 @@ const SignUp = () => {
 
       const data = await res.json();
       if (data.status === 'fail') {
+        setLoading(false);
         throw new Error(data.message);
       }
       const user = data.data.user;
       toast.success('Account Created Successfully');
       window.localStorage.setItem('userDetails', JSON.stringify(user));
+      setLoading(false);
       setTimeout(() => {
         navigate('/home');
       }, 1000);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+      setLoading(false);
     }
   };
 
@@ -77,16 +94,25 @@ const SignUp = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor='password' className='text-lg'>
-            Password:{' '}
-          </label>
-          <input
-            className='border-2 rounded-md p-2 border-black'
-            type='text'
-            id='password'
-            value={password}
-            onChange={handleChange}
-          />
+          <div className='relative flex flex-col gap-2'>
+            <label htmlFor='name' className='text-lg'>
+              Password:{' '}
+            </label>
+            <input
+              className='border-2 rounded-md p-2 border-black'
+              type={`${showPassword ? 'text' : 'password'}`}
+              id='password'
+              value={password}
+              onChange={handleChange}
+            />
+            <img
+              onClick={handleEyeChange}
+              src={`${hideEye ? '../hide.png' : '../view.png'}`}
+              width={25}
+              alt='eye'
+              className='cursor-pointer absolute right-[0.5rem] top-[2.9rem]'
+            />
+          </div>
 
           <p>
             Have an Account ?{' '}
@@ -99,7 +125,7 @@ const SignUp = () => {
             className='btn btn-form mt-3  w-[60%] sm:w-[200px] m-auto'
             type='submit'
           >
-            Sign Up
+            {loading ? <Spinner /> : 'Sign Up'}
           </button>
 
           <div className='form-divider relative border-2 mt-5'></div>

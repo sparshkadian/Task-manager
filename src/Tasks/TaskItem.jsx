@@ -4,11 +4,11 @@ import { useContext } from 'react';
 import TaskContext from '../context/TaskContext';
 
 const TaskItem = ({ data }) => {
-  const { deleteTask, updateTaskItem, setUpdateTaskItem } =
+  const { completeTask, updateTaskItem, setUpdateTaskItem } =
     useContext(TaskContext);
 
   const handleTaskDelete = () => {
-    deleteTask(data._id);
+    completeTask(data._id);
   };
 
   const handleTaskUpdate = () => {
