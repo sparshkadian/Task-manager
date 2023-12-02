@@ -3,7 +3,7 @@ import TaskContext from '../context/TaskContext';
 import TaskItem from './TaskItem';
 
 const TasksList = () => {
-  const { data, getData } = useContext(TaskContext);
+  const { taskData, getData } = useContext(TaskContext);
 
   const userDetails = window.localStorage.getItem('userDetails')
     ? JSON.parse(window.localStorage.getItem('userDetails'))
@@ -17,7 +17,7 @@ const TasksList = () => {
     <>
       <div className='mt-10 w-4/5 sm:w-1/2 m-auto'>
         <div className='flex flex-col gap-5'>
-          {data?.map((task, i) => {
+          {taskData?.map((task, i) => {
             return <TaskItem key={i} data={task} />;
           })}
         </div>
