@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import OAuth from './OAuth';
 import Spinner from '../components/Spinner';
-import toast from 'react-hot-toast';
+import AsyncCalls from '../AsyncCalls';
+import TaskContext from '../context/TaskContext';
 
 const SignUp = () => {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { loading } = useContext(TaskContext);
+  const { login } = AsyncCalls();
   const [showPassword, setShowPassword] = useState(false);
   const [hideEye, setHideEye] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,34 +34,7 @@ const SignUp = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch('http://localhost:4310/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (data.status === 'fail') {
-        setLoading(false);
-        throw new Error(data.message);
-      }
-      const user = data.data.user;
-      toast.success('Logged In Successfully');
-      window.localStorage.setItem('userDetails', JSON.stringify(user));
-      setLoading(false);
-      setTimeout(() => {
-        navigate('/home');
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-      setLoading(false);
-    }
+    login(e, formData);
   };
 
   return (

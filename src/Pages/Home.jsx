@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import TaskContext from '../context/TaskContext';
 import TasksList from '../Tasks/TasksList';
 import SideBar from '../components/SideBar';
@@ -9,6 +10,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 const Home = () => {
   const inputRef = useRef(null);
   const [task, setTask] = useState('');
+  const [width, setWidth] = useState(window.innerWidth);
   const { updateTaskItem, addTask, updateTask } = useContext(TaskContext);
 
   const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
@@ -25,6 +27,10 @@ const Home = () => {
     setTask(e.target.value);
   };
 
+  window.addEventListener('resize', () => {
+    setWidth(window.innerWidth);
+  });
+
   const handleAddTask = (e) => {
     e.preventDefault();
     if (!task) return;
@@ -39,6 +45,15 @@ const Home = () => {
 
   return (
     <div className='relative h-screen top-0'>
+      <Link to='/taskshistory'>
+        <button className='view-history-btn btn absolute right-[10px] top-[10px]'>
+          {width > 710 ? (
+            'View History'
+          ) : (
+            <img src='../history.png' width={20} alt='view-history' />
+          )}
+        </button>
+      </Link>
       <div className='absolute'>
         <SideBar />
       </div>

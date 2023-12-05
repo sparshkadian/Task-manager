@@ -6,6 +6,7 @@ export const TaskProvider = ({ children }) => {
   const [taskData, setTaskData] = useState([]);
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [updateTaskItem, setUpdateTaskItem] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getTasksData = async (userId) => {
     const res = await fetch(`http://localhost:4310/api/tasks/${userId}`);
@@ -63,6 +64,8 @@ export const TaskProvider = ({ children }) => {
         taskData,
         updateTaskItem,
         tasksCompleted,
+        loading,
+        setLoading,
         getTasksData,
         completeTask,
         addTask,

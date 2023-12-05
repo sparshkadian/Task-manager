@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import AsyncCalls from '../AsyncCalls';
 
 const UpdateProfile = () => {
+  const { updateProfile } = AsyncCalls();
   const [formData, setFormData] = useState({ file: '', name: '' });
 
   const { _id: userId, isGoogleAuth: google } = JSON.parse(
@@ -23,38 +24,14 @@ const UpdateProfile = () => {
     }));
   };
 
-  const handlePhotoUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      const form = new FormData();
-      form.append('photo', formData.file);
-      form.append('name', formData.name);
-      const res = await fetch(
-        `http://localhost:4310/api/user/updateMe/${userId}`,
-        {
-          method: 'PATCH',
-          body: form,
-        }
-      );
-      const data = await res.json();
-      if (data.status === 'fail') throw new Error(data.message);
-      window.localStorage.removeItem('userDetails');
-      window.localStorage.setItem(
-        'userDetails',
-        JSON.stringify(data.data?.user)
-      );
-      window.location.reload();
-      toast.success('Update successfull');
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
+  const handleProfileUpdate = async (e) => {
+    updateProfile(e, formData, userId);
   };
 
   return (
     <div className='flex items-center justify-center p-12'>
       <div className='z-[10] mx-auto w-full max-w-[550px]'>
-        <form onSubmit={handlePhotoUpdate}>
+        <form onSubmit={handleProfileUpdate}>
           <div className='mb-5'>
             <label
               htmlFor='file'

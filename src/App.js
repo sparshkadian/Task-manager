@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Protected from './components/Protected';
 import UpdateProfile from './components/UpdateProfile';
 import ChangePassword from './Pages/ChangePassword';
+import ViewHistory from './Pages/ViewHistory';
 import { TaskProvider } from './context/TaskContext';
 import { Toaster } from 'react-hot-toast';
 
@@ -31,6 +32,7 @@ function App() {
             />
             <Route path='/updateProfile' element={<UpdateProfile />} />
             <Route path='/changepassword' element={<ChangePassword />} />
+            <Route path='/taskshistory' element={<ViewHistory />} />
           </Routes>
         </BrowserRouter>
         <Toaster />

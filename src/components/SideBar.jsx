@@ -10,7 +10,6 @@ import image from '../assets/imgs/default.png';
 const SideBar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
   const profileImage = image;
   const userDetails = JSON.parse(window.localStorage.getItem('userDetails'));
 
