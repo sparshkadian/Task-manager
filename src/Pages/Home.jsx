@@ -42,7 +42,6 @@ const Home = () => {
       setTask('');
     }
   };
-
   return (
     <div className='relative h-screen top-0'>
       <Link to='/taskshistory'>
